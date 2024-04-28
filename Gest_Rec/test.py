@@ -61,14 +61,20 @@ cam = cv2.VideoCapture(0)
 
 cv2.namedWindow("test")
 handDetector = HandDetector(detectionCon = 0.5, maxHands = 1)
-faceDetector = FaceDetector()
 
 img_counter = 0
 
-m = MQTT_class()
+# m = MQTT_class()
 
 
 while True:
+    k = cv2.waitKey(1)
+
+    if k%256 == 27: # esc key
+          print("Closing Window")
+          break
+    
+    
     ret, frame0 = cam.read()
     if not ret:
             print("Failed to get frame")
@@ -80,14 +86,10 @@ while True:
         hands1 = hands[0]
         fingers = handDetector.fingersUp(hands1)
         print(fingers)
-        m.publish_gesture_data(fingers)
+        # m.publish_gesture_data(fingers)
         
 
-    k = cv2.waitKey(1)
 
-    if k%256 == 27: # esc key
-          print("Closing Window")
-          break
 
 cam.release()
 cam.destroyAllWindows()
