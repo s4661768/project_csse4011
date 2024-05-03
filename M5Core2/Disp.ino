@@ -1,25 +1,23 @@
 #include "M5Core2.h"
 #include <WiFi.h>
 #include <PubSubClient.h>
-#include <ArduinoJson.h>  // Include the ArduinoJson library
+#include <ArduinoJson.h>
+#include <math.h>
 
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-const int trigPin = 33;  // GPIO pin connected to the Trig pin of the ultrasonic ranger
-const int echoPin = 32;  // GPIO pin connected to the Echo pin of the ultrasonic ranger
-
 const char* ssid = "infrastructure";
-const char* password = "";
+const char* password = "uGVu-z6psh69";
 const char* mqtt_server = "csse4011-iot.zones.eait.uq.edu.au";
-// const char* mqtt_server = "mqtt.eclipseprojects.io";
-const char* mqtt_topic_general = "46591300_General";  // Additional MQTT topic
+const char* mqtt_topic_general = "un46591300";
 
 unsigned long lastMsg = 0;
-#define MSG_BUFFER_SIZE (100)  // Increased buffer size for JSON message
+#define MSG_BUFFER_SIZE (100)
 char msg[MSG_BUFFER_SIZE];
-int xValue = 0;
-int yValue = 0;
+float xValue = 0;
+float yValue = 0;
+float yawValue = 0;
 int value = 0;
 
 char receivedMessage[MSG_BUFFER_SIZE];
@@ -28,34 +26,22 @@ void setupWifi();
 void callback(char* topic, byte* payload, unsigned int length);
 void reConnect();
 
-const int squareSize = min(M5.Lcd.width(), M5.Lcd.height()) / 2;  // Size of the square
-const int crossSize = squareSize / 5;                             // Size of the cross lines
-const int squareCenterX = M5.Lcd.width() / 2;                     // X-coordinate of the square center
-const int squareCenterY = M5.Lcd.height() / 2;                    // Y-coordinate of the square center
-
-// Calculate the coordinates of the top-left corner of the square
-int squareTopLeftX = squareCenterX - squareSize / 2;
-int squareTopLeftY = squareCenterY - squareSize / 2;
-int squareTopRightX = squareCenterX + squareSize / 2;
-int squareTopRightY = squareCenterY - squareSize / 2;
-int squareBottomLeftX = squareCenterX - squareSize / 2;
-int squareBottomLeftY = squareCenterY + squareSize / 2;
-int squareBottomRightX = squareCenterX + squareSize / 2;
-int squareBottomRightY = squareCenterY + squareSize / 2;
+const int gridWidth = 200;
+const int gridHeight = 200;
+const int gridSize = min(M5.Lcd.width(), M5.Lcd.height()) / 2;
+const int gridCellSize = gridSize / 3;
 
 const int minXValue = 0;
 const int maxXValue = 2;
 const int minYValue = 0;
 const int maxYValue = 2;
-const int minPixelX = 0;
-const int maxPixelX = 240;
-const int minPixelY = 0;
-const int maxPixelY = 320;
 
-// Function to map input values to pixel coordinates
-int mapValueToPixel(int value, int minValue, int maxValue, int minPixel, int maxPixel) {
-  // Map the value to the range between minPixel and maxPixel
-  return map(value, minValue, maxValue, minPixel, maxPixel);
+float mapFloat(float value, float fromLow, float fromHigh, float toLow, float toHigh) {
+  return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
+}
+
+float mapValueToPixel(float value, float minValue, float maxValue, int minPixel, int maxPixel) {
+  return mapFloat(value, minValue, maxValue, minPixel, maxPixel);
 }
 
 void setup() {
@@ -64,25 +50,9 @@ void setup() {
   setupWifi();
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
-  client.subscribe(mqtt_topic_general);     // Subscribe to the general MQTT topic
+  client.subscribe(mqtt_topic_general);
 
-  // Draw horizontal cross line
-  M5.Lcd.drawLine(squareCenterX - squareSize / 2, squareCenterY, squareCenterX + squareSize / 2, squareCenterY, TFT_WHITE);
-  // Draw vertical cross line
-  M5.Lcd.drawLine(squareCenterX, squareCenterY - squareSize / 2, squareCenterX, squareCenterY + squareSize / 2, TFT_WHITE);
-  M5.Lcd.drawRect(squareTopLeftX, squareTopLeftY, squareSize, squareSize, TFT_WHITE);
-  M5.Lcd.drawCircle(squareCenterX, squareCenterY, 5, TFT_RED);
-
-  Serial.println(squareCenterX);
-  Serial.println(squareCenterY);
-  Serial.println(squareTopLeftX);
-  Serial.println(squareTopLeftY);
-  Serial.println(squareTopRightX);
-  Serial.println(squareTopRightY);
-  Serial.println(squareBottomLeftX);
-  Serial.println(squareBottomLeftY);
-  Serial.println(squareBottomRightX);
-  Serial.println(squareBottomRightY);
+  Draw_Grid();
 }
 
 void loop() {
@@ -93,22 +63,67 @@ void loop() {
   }
   client.loop();
 
-  M5.Lcd.setCursor(0, 0);
-  M5.Lcd.print("Battery Life: 50%");
+  M5.Lcd.setCursor(220, 10);
+  M5.Lcd.printf("Battery Life:");
+
+  M5.Lcd.setCursor(220, 20);
+  M5.Lcd.printf("X:");
+  M5.Lcd.setCursor(235, 20);
+  M5.Lcd.print(xValue);
+
+  M5.Lcd.setCursor(220, 30);
+  M5.Lcd.printf("Y:");
+  M5.Lcd.setCursor(235, 30);
+  M5.Lcd.print(yValue);
+
+  M5.Lcd.setCursor(220, 40);
+  M5.Lcd.printf("Yaw:");
+  M5.Lcd.setCursor(250, 40);
+  M5.Lcd.print(yawValue);
+
+  M5.Lcd.setCursor(220, 50);
+  M5.Lcd.printf("Lin. Velo.:");
+  M5.Lcd.setCursor(250, 50);
+
+  M5.Lcd.setCursor(220, 60);
+  M5.Lcd.printf("ang. Velo.:");
+  M5.Lcd.setCursor(250, 60);
 
   // Map the xValue and yValue to pixel coordinates
-  int pixelX = mapValueToPixel(xValue, minXValue, maxXValue, squareTopLeftX, squareTopRightX);
-  int pixelY = mapValueToPixel(yValue, minYValue, maxYValue, squareTopLeftY, squareBottomLeftY);
-  Serial.println(pixelX);
-  Serial.println(pixelY);
+  float pixelX = mapValueToPixel(xValue, minXValue, maxXValue, 10, gridWidth) + 5;
+  float pixelY = mapValueToPixel(yValue, minYValue, maxYValue, 10, gridHeight) + 5;
+  // Serial.println(pixelX);
+  // Serial.println(pixelX);
 
+  // Calculate the end point of the line based on rotation angle (yawValue)
+  float angle = mapFloat(yawValue, -3.14, 3.14, -180, 180); 
+  angle = -angle;
+  angle = radians(angle);                     
+  float lineEndX = pixelX + 15 * cos(angle);  
+  float lineEndY = pixelY + 15 * sin(angle);  
 
-  // Draw horizontal cross line
-  M5.Lcd.drawLine(squareCenterX - squareSize / 2, squareCenterY, squareCenterX + squareSize / 2, squareCenterY, TFT_WHITE);
-  // Draw vertical cross line
-  M5.Lcd.drawLine(squareCenterX, squareCenterY - squareSize / 2, squareCenterX, squareCenterY + squareSize / 2, TFT_WHITE);
-  M5.Lcd.drawRect(squareTopLeftX, squareTopLeftY, squareSize, squareSize, TFT_WHITE);
-  M5.Lcd.drawCircle(pixelX, pixelY, 5, TFT_RED);
+  // Draw circle with arrow
+  M5.Lcd.fillCircle(pixelX, pixelY, 5, TFT_RED);
+  M5.Lcd.drawLine(pixelX, pixelY, lineEndX, lineEndY, TFT_RED);
+
+  Draw_Grid();
+}
+
+void Draw_Grid() {
+  M5.Lcd.drawFastHLine(10, 10, 200, WHITE); // Top line
+  M5.Lcd.drawFastHLine(10, 210, 200, WHITE); // Bottom line
+  M5.Lcd.drawFastVLine(10, 10, 200, WHITE); // Left vertical
+  M5.Lcd.drawFastVLine(210, 10, 200, WHITE);   // Right vertical
+
+  // Vertical lines
+  M5.Lcd.drawFastVLine(60, 10, 200, WHITE);
+  M5.Lcd.drawFastVLine(110, 10, 200, WHITE);
+  M5.Lcd.drawFastVLine(160, 10, 200, WHITE);
+
+  // Horizontal lines
+  M5.Lcd.drawFastHLine(10, 60, 200, WHITE);
+  M5.Lcd.drawFastHLine(10, 110, 200, WHITE);
+  M5.Lcd.drawFastHLine(10, 160, 200, WHITE);
 }
 
 void setupWifi() {
@@ -125,25 +140,30 @@ void setupWifi() {
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
-
-  memset(receivedMessage, 0, MSG_BUFFER_SIZE);
-  memcpy(receivedMessage, payload, length);
-  char* commaPtr = strchr(receivedMessage, ',');
-  if (commaPtr != NULL) {
-    *commaPtr = '\0';                // Replace comma with null terminator to split the string
-    xValue = atoi(receivedMessage);  // Convert the first part to integer
-    yValue = atoi(commaPtr + 1);     // Convert the second part to integer
-  }
-  M5.Lcd.clear();
-
-  // M5.Lcd.print("Message arrived [");
-  // M5.Lcd.print(topic);
-  // M5.Lcd.print("] ");
+  // Serial.println("Message received on topic: " + String(topic));
+  // Serial.println("Message content:");
   // for (int i = 0; i < length; i++) {
-  //   M5.Lcd.print((char)payload[i]);
+  //   Serial.print((char)payload[i]);
   // }
-  // M5.Lcd.println();
+  // Serial.println(); // Print a new line after the message
+  String payloadStr = "";
+  for (int i = 0; i < length; i++) {
+    payloadStr += (char)payload[i];
+  }
+
+  StaticJsonDocument<200> doc;
+  deserializeJson(doc, payloadStr);
+
+  float x = doc["position"]["x"];
+  float y = doc["position"]["y"];
+  float yaw = doc["position"]["yaw"];
+  xValue = x;
+  yValue = y;
+  yawValue = yaw;  // Update yaw value
+  M5.Lcd.clear();
+  Draw_Grid();
 }
+
 
 void reConnect() {
   while (!client.connected()) {
@@ -154,12 +174,13 @@ void reConnect() {
       M5.Lcd.printf("\nSuccess\n");
       client.publish(mqtt_topic_general, "hello world");
       client.subscribe(mqtt_topic_general);
-      client.subscribe(mqtt_topic_general);  // Subscribe again after reconnection
     } else {
       M5.Lcd.print("failed, rc=");
       M5.Lcd.print(client.state());
       M5.Lcd.println("try again in 5 seconds");
       delay(5000);
     }
+    M5.Lcd.clear();
+    Draw_Grid();
   }
 }
