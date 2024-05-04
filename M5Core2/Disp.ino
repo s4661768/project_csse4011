@@ -96,11 +96,11 @@ void loop() {
   // Serial.println(pixelX);
 
   // Calculate the end point of the line based on rotation angle (yawValue)
-  float angle = mapFloat(yawValue, -3.14, 3.14, -180, 180); 
+  float angle = mapFloat(yawValue, -3.14, 3.14, -180, 180);
   angle = -angle;
-  angle = radians(angle);                     
-  float lineEndX = pixelX + 15 * cos(angle);  
-  float lineEndY = pixelY + 15 * sin(angle);  
+  angle = radians(angle);
+  float lineEndX = pixelX + 15 * cos(angle);
+  float lineEndY = pixelY + 15 * sin(angle);
 
   // Draw circle with arrow
   M5.Lcd.fillCircle(pixelX, pixelY, 5, TFT_RED);
@@ -110,10 +110,10 @@ void loop() {
 }
 
 void Draw_Grid() {
-  M5.Lcd.drawFastHLine(10, 10, 200, WHITE); // Top line
-  M5.Lcd.drawFastHLine(10, 210, 200, WHITE); // Bottom line
-  M5.Lcd.drawFastVLine(10, 10, 200, WHITE); // Left vertical
-  M5.Lcd.drawFastVLine(210, 10, 200, WHITE);   // Right vertical
+  M5.Lcd.drawFastHLine(10, 10, 200, WHITE);   // Top line
+  M5.Lcd.drawFastHLine(10, 210, 200, WHITE);  // Bottom line
+  M5.Lcd.drawFastVLine(10, 10, 200, WHITE);   // Left vertical
+  M5.Lcd.drawFastVLine(210, 10, 200, WHITE);  // Right vertical
 
   // Vertical lines
   M5.Lcd.drawFastVLine(60, 10, 200, WHITE);
@@ -140,12 +140,6 @@ void setupWifi() {
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
-  // Serial.println("Message received on topic: " + String(topic));
-  // Serial.println("Message content:");
-  // for (int i = 0; i < length; i++) {
-  //   Serial.print((char)payload[i]);
-  // }
-  // Serial.println(); // Print a new line after the message
   String payloadStr = "";
   for (int i = 0; i < length; i++) {
     payloadStr += (char)payload[i];
@@ -157,12 +151,19 @@ void callback(char* topic, byte* payload, unsigned int length) {
   float x = doc["position"]["x"];
   float y = doc["position"]["y"];
   float yaw = doc["position"]["yaw"];
+
+  // Convert floating-point coordinates to pixel coordinates
+  float pixelX = mapValueToPixel(x, minXValue, maxXValue, 10, gridWidth) + 5;
+  float pixelY = mapValueToPixel(y, minYValue, maxYValue, 10, gridHeight) + 5;
+
+  // Clear only the area where the previous circle was drawn
+  M5.Lcd.fillRect(pixelX - 17, pixelY - 17, 55, 55, TFT_BLACK);
+
   xValue = x;
   yValue = y;
-  yawValue = yaw;  // Update yaw value
-  M5.Lcd.clear();
-  Draw_Grid();
+  yawValue = yaw; 
 }
+
 
 
 void reConnect() {
