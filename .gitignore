@@ -50,3 +50,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+#exclude zephyr directory
+zephyr/
+build/
+bootloader/
+modules/
+.DS_Store
