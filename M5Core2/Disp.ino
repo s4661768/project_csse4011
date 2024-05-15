@@ -7,9 +7,12 @@
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-const char* ssid = "infrastructure";
-const char* password = "uGVu-z6psh69";
+const char* ssid = "csse4011demo";
+const char* password = "csse4011";
 const char* mqtt_server = "csse4011-iot.zones.eait.uq.edu.au";
+// const char* ssid = "TelstraD74476";
+// const char* password = "sam9494sam";
+// const char* mqtt_server = "mqtt.eclipseprojects.io";
 const char* mqtt_topic_general = "un46591300";
 
 unsigned long lastMsg = 0;
@@ -19,6 +22,8 @@ float xValue = 0;
 float yValue = 0;
 float yawValue = 0;
 int value = 0;
+float linear_velocity = 0;
+float ang_velocity = 0;
 
 char receivedMessage[MSG_BUFFER_SIZE];
 
@@ -82,12 +87,14 @@ void loop() {
   M5.Lcd.print(yawValue);
 
   M5.Lcd.setCursor(220, 50);
-  M5.Lcd.printf("Lin. Velo.:");
+  M5.Lcd.printf("Lin. V:");
   M5.Lcd.setCursor(250, 50);
+  M5.Lcd.print(linear_velocity);
 
   M5.Lcd.setCursor(220, 60);
-  M5.Lcd.printf("ang. Velo.:");
+  M5.Lcd.printf("ang. V:");
   M5.Lcd.setCursor(250, 60);
+  M5.Lcd.print(ang_velocity);
 
   // Map the xValue and yValue to pixel coordinates
   float pixelX = mapValueToPixel(xValue, minXValue, maxXValue, 10, gridWidth) + 5;
@@ -145,26 +152,34 @@ void callback(char* topic, byte* payload, unsigned int length) {
     payloadStr += (char)payload[i];
   }
 
+  Serial.print("Message received on topic: ");
+  Serial.println(topic);
+  Serial.print("Payload: ");
+  Serial.println(payloadStr);
+
   StaticJsonDocument<200> doc;
   deserializeJson(doc, payloadStr);
 
   float x = doc["position"]["x"];
   float y = doc["position"]["y"];
-  float yaw = doc["position"]["yaw"];
+  float yaw = doc["position"]["Yaw"];
+  float linear_v = doc["motion"]["linear_velocity"];
+  float ang_v = doc["motion"]["angular_velocity"];
 
   // Convert floating-point coordinates to pixel coordinates
   float pixelX = mapValueToPixel(x, minXValue, maxXValue, 10, gridWidth) + 5;
   float pixelY = mapValueToPixel(y, minYValue, maxYValue, 10, gridHeight) + 5;
 
   // Clear only the area where the previous circle was drawn
-  M5.Lcd.fillRect(pixelX - 17, pixelY - 17, 55, 55, TFT_BLACK);
+  M5.Lcd.clear();
 
   xValue = x;
   yValue = y;
-  yawValue = yaw; 
+  yawValue = yaw;
+  linear_velocity = linear_v;
+  ang_velocity = ang_v;
+
 }
-
-
 
 void reConnect() {
   while (!client.connected()) {
