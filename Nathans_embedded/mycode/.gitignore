@@ -58,9 +58,5 @@ bootloader/
 modules/
 .DS_Store
 
-#exclude zephyr directory
-zephyr/
-build/
-bootloader/
-modules/
-.DS_Store
+.west/config
+mycode/apps/mobile/src/new-main.c
