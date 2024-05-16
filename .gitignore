@@ -69,3 +69,29 @@ modules/
 
 
 project_csse4011/nrf_thingy/mycode/mylib/Thingy:52
+Nathans_embedded/mycode/._CMakeLists.txt
+Nathans_embedded/mycode/Kconfig.csse4011
+Nathans_embedded/.west/config
+Nathans_embedded/mycode.tar
+Nathans_embedded/mycode/apps/._.DS_Store
+Nathans_embedded/mycode/apps/dk_board/sample.yaml
+Nathans_embedded/mycode/apps/mpu6050_test/sample.yaml
+Nathans_embedded/mycode/apps/test/blinky/sample.yaml
+Nathans_embedded/mycode/include/dummy.h
+Nathans_embedded/mycode/apps/test/blinky/src/main.c
+Nathans_embedded/mycode/mylib/dummy.c
+Nathans_embedded/mycode/mylib/Thingy:52/mpu6050/mpu6050.c
+Nathans_embedded/mycode/mylib/Thingy:52/mpu6050/mpu6050.h
+Nathans_embedded/mycode/mylib/Thingy:52/sensors/bluetooth/ibeacon.c
+Nathans_embedded/mycode/mylib/Thingy:52/sensors/bluetooth/ibeacon.h
+Nathans_embedded/mycode/mylib/Thingy:52/sensors/lis2dh/lis2dh.c
+Nathans_embedded/mycode/mylib/Thingy:52/sensors/mpu9250/mpu9250.c
+Nathans_embedded/mycode/west.yml
+Nathans_embedded/mycode/apps/mpu6050_test/._.DS_Store
+Nathans_embedded/mycode/apps/test/blinky/._.DS_Store
+.gitignore
+Nathans_embedded/mycode/apps/test/blinky/CMakeLists.txt
+Nathans_embedded/mycode/apps/test/blinky/prj.conf
+Nathans_embedded/mycode/apps/test/blinky/README.rst
+Nathans_embedded/mycode/mylib/protocolBuffer/__pycache__/hci_pb2.cpython-310.pyc
+Nathans_embedded/mycode/mylib/._CMakeLists.txt
