@@ -27,7 +27,7 @@ def handle_serial_and_publish(ser, client, topic):
             print("Serial port closed")
 
 com_port = '/dev/ttyACM0'  # Change this to the appropriate COM port
-baud_rate = 115200         # Change this to match the baud rate of your device
+baud_rate =  115200         # Change this to match the baud rate of your device
 
 # Initialize MQTT client
 mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
