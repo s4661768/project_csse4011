@@ -82,3 +82,8 @@ Nathans_embedded/mycode/apps/._.DS_Store
 Nathans_embedded/mycode/apps/mpu6050_test/._.DS_Store
 Nathans_embedded/mycode/apps/mpu6050_test/sample.yaml
 Nathans_embedded/mycode/mylib/._CMakeLists.txt
+GUI/__pycache__/gesture_recogniser.cpython-310.pyc
+GUI/__pycache__/gesture.cpython-310.pyc
+GUI/__pycache__/gui.cpython-310.pyc
+GUI/__pycache__/mqtt.cpython-310.pyc
+GUI/__pycache__/thingy52.cpython-310.pyc
