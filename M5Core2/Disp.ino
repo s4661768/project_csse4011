@@ -84,8 +84,10 @@ void loop() {
   M5.Lcd.print(yawValue);
 
   // Map the xValue and yValue to pixel coordinates
-  float pixelX = mapValueToPixel(2 - yValue, minXValue, maxXValue, 10, gridWidth) + 5;
-  float pixelY = mapValueToPixel(2 - xValue , minYValue, maxYValue, 10, gridHeight) + 5;
+  // float pixelX = mapValueToPixel(2 - yValue, minXValue, maxXValue, 10, gridWidth) + 5;
+  // float pixelY = mapValueToPixel(2 - xValue , minYValue, maxYValue, 10, gridHeight) + 5;
+    float pixelX = mapValueToPixel(yValue, minXValue, maxXValue, 10, gridWidth) + 5;
+  float pixelY = mapValueToPixel(xValue , minYValue, maxYValue, 10, gridHeight) + 5;
   // Serial.println(pixelX);
   // Serial.println(pixelX);
 
