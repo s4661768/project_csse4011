@@ -71,12 +71,12 @@ void loop() {
   M5.Lcd.setCursor(220, 20);
   M5.Lcd.printf("X:");
   M5.Lcd.setCursor(235, 20);
-  M5.Lcd.print(2 - yValue);
+  M5.Lcd.print(yValue);
 
   M5.Lcd.setCursor(220, 30);
   M5.Lcd.printf("Y:");
   M5.Lcd.setCursor(235, 30);
-  M5.Lcd.print(2 - xValue);
+  M5.Lcd.print(xValue);
 
   M5.Lcd.setCursor(220, 40);
   M5.Lcd.printf("Yaw:");
@@ -86,8 +86,20 @@ void loop() {
   // Map the xValue and yValue to pixel coordinates
   // float pixelX = mapValueToPixel(2 - yValue, minXValue, maxXValue, 10, gridWidth) + 5;
   // float pixelY = mapValueToPixel(2 - xValue , minYValue, maxYValue, 10, gridHeight) + 5;
-    float pixelX = mapValueToPixel(yValue, minXValue, maxXValue, 10, gridWidth) + 5;
-  float pixelY = mapValueToPixel(xValue , minYValue, maxYValue, 10, gridHeight) + 5;
+  if (yValue < 0) {
+    yValue = 0;
+  }
+  if (xValue < 0) {
+    xValue = 0;
+  }
+  if (xValue > 2) {
+    xValue = 2;
+  }
+  if (yValue > 2) {
+    yValue = 2;
+  }
+  float pixelX = mapValueToPixel(yValue, minXValue, maxXValue, 10, gridWidth) + 5;
+  float pixelY = mapValueToPixel(xValue, minYValue, maxYValue, 10, gridHeight) + 5;
   // Serial.println(pixelX);
   // Serial.println(pixelX);
 
@@ -159,7 +171,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
   yawValue = yaw;
   linear_velocity = linear_v;
   ang_velocity = ang_v;
-
 }
 
 void reConnect() {
