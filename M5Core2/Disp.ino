@@ -15,8 +15,8 @@ const char* mqtt_topic_general = "un46591300";
 unsigned long lastMsg = 0;
 #define MSG_BUFFER_SIZE (100)
 char msg[MSG_BUFFER_SIZE];
-float xValue = 0;
-float yValue = 0;
+float xValue = 1;
+float yValue = 1;
 float yawValue = 0;
 int value = 0;
 float linear_velocity = 0;
@@ -71,44 +71,26 @@ void loop() {
   M5.Lcd.setCursor(220, 20);
   M5.Lcd.printf("X:");
   M5.Lcd.setCursor(235, 20);
-  M5.Lcd.print(xValue);
+  M5.Lcd.print(2 - yValue);
 
   M5.Lcd.setCursor(220, 30);
   M5.Lcd.printf("Y:");
   M5.Lcd.setCursor(235, 30);
-  M5.Lcd.print(yValue);
+  M5.Lcd.print(2 - xValue);
 
   M5.Lcd.setCursor(220, 40);
   M5.Lcd.printf("Yaw:");
   M5.Lcd.setCursor(250, 40);
   M5.Lcd.print(yawValue);
 
-  M5.Lcd.setCursor(220, 50);
-  M5.Lcd.printf("Lin. V:");
-  M5.Lcd.setCursor(250, 50);
-  M5.Lcd.print(linear_velocity);
-
-  M5.Lcd.setCursor(220, 60);
-  M5.Lcd.printf("ang. V:");
-  M5.Lcd.setCursor(250, 60);
-  M5.Lcd.print(ang_velocity);
-
   // Map the xValue and yValue to pixel coordinates
-  float pixelX = mapValueToPixel(xValue, minXValue, maxXValue, 10, gridWidth) + 5;
-  float pixelY = mapValueToPixel(yValue, minYValue, maxYValue, 10, gridHeight) + 5;
+  float pixelX = mapValueToPixel(2 - yValue, minXValue, maxXValue, 10, gridWidth) + 5;
+  float pixelY = mapValueToPixel(2 - xValue , minYValue, maxYValue, 10, gridHeight) + 5;
   // Serial.println(pixelX);
   // Serial.println(pixelX);
-
-  // Calculate the end point of the line based on rotation angle (yawValue)
-  float angle = mapFloat(yawValue, -3.14, 3.14, -180, 180);
-  angle = -angle;
-  angle = radians(angle);
-  float lineEndX = pixelX + 15 * cos(angle);
-  float lineEndY = pixelY + 15 * sin(angle);
 
   // Draw circle with arrow
   M5.Lcd.fillCircle(pixelX, pixelY, 5, TFT_RED);
-  M5.Lcd.drawLine(pixelX, pixelY, lineEndX, lineEndY, TFT_RED);
 
   Draw_Grid();
 }
