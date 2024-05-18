@@ -26,8 +26,9 @@ def main():
         print("Invalid input")
         exit(1)
 
+    # Testing serial port:
+    # If the port is valid, the program continue. Otherwise, it will exit.
     try:
-        # Testing serial port
         ser = serial.Serial(com_port, baud_rate)
         ser.close()
     except serial.SerialException as e:    
