@@ -1,8 +1,15 @@
+""" This file contains the MQTT class. It is used to publish and subscribe to hardcoded MQTT topic.
+The Thing52 class and the Gesture_Recogniser class use this class to publish and subscribe to the 
+MQTT topics. """
+
+
 import paho.mqtt.client as mqtt
 import threading
 import json
 import gesture as g
 from gesture import Gesture
+
+
 class MQTT:
 
     def __init__(self):
@@ -18,8 +25,10 @@ class MQTT:
 
             # Gesture Stuff
             self.input_source = 0 # 0 -> Hand recognition, 1 -> IMU data
-            self.last_hand_gesture = Gesture.STOP
-            self.last_thingy52_gesture = Gesture.STOP
+            self.last_hand_gesture = Gesture.STOP # Last hand gesture
+            self.last_thingy52_gesture = Gesture.STOP # Last Thingy52 gesture
+
+            self.publish = 0
 
     def on_subscribe(self, client, userdata, mid, reason_code_list, properties):
             if reason_code_list[0].is_failure:
@@ -36,7 +45,7 @@ class MQTT:
 
     def on_message(self, client, userdata, message):
         inval = message.payload.decode()
-        # print("got message", inval)
+        
         self.last_rec_command = inval
 
     def on_connect(self, client, userdata, flags, reason_code, properties):
@@ -50,14 +59,13 @@ class MQTT:
 
     def publish_gesture_data_hand(self, movement_data: int):
         self.last_hand_gesture = g.get_gest_value(movement_data)
-        if self.input_source == 0:
-            
+        if (self.input_source == 0) and (self.publish == 1):
             self.mqttc.publish("un44779195", json.dumps(movement_data))
 
     def publish_gesture_data_thingy52(self, movement_data: int):
         i = int(movement_data)
         self.last_thingy52_gesture = g.get_gest_value(i)
-        if self.input_source == 1:
+        if (self.input_source == 1) and (self.publish == 1):
         
             print(f"This is the number ------------------ {i}")
             self.mqttc.publish("un44779195", json.dumps(i))
@@ -65,15 +73,24 @@ class MQTT:
     def mqtt_process(self):
         self.mqttc.loop_forever()
 
+    """ This function toggles the input source between hand recognition and IMU data. """
     def set_input_source(self, input_source):
         self.input_source = input_source
 
+    """ This function returns the current input source. """
     def get_input_source(self):
         return self.input_source
     
+    """ This function returns the last hand gesture. """
     def get_last_hand_gesture(self):
         return self.last_hand_gesture
     
+    """ This function returns the last Thingy52 gesture. """
     def get_last_thingy52_gesture(self):
-        print(self.last_thingy52_gesture)
         return self.last_thingy52_gesture
+    
+    def publish_toggle(self):
+        self.publish = (self.publish + 1) % 2
+
+    def get_publish(self):
+        return self.publish

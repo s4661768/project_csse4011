@@ -59,6 +59,8 @@ class Gesture_Recogniser:
             gest = Gesture.LEFT
         elif num == 1:
             gest = Gesture.RIGHT
+        elif num == 2:
+            gest = Gesture.HOME
         else:
             gest = Gesture.STOP
 
@@ -74,6 +76,8 @@ class Gesture_Recogniser:
             code = 3
         elif gest == Gesture.RIGHT:
             code = 4
+        elif gest == Gesture.HOME:
+            code = 5
 
         return code
 

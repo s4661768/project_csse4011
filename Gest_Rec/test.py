@@ -119,7 +119,7 @@ class GUI:
 
 
 class Gesture_Recogniser:
-    def __init__(self, gui: GUI, mqtt: MQTT_class):
+    def __init__(self, gui: GUI, mqtt: MQTT):
         self.gui = gui
         self.mqtt = mqtt
         cv2.namedWindow("test")
@@ -162,6 +162,8 @@ class Gesture_Recogniser:
         num = -1
         for i in range(0, len(fingers)):
             num += (2 ** i) * fingers[i]
+
+        # print(num)
         
 
         if num == 29:
@@ -172,6 +174,8 @@ class Gesture_Recogniser:
             gest = Gesture.LEFT
         elif num == 1:
             gest = Gesture.RIGHT
+        elif num == 2:
+            gest = Gesture.HOME
         else:
             gest = Gesture.STOP
 
@@ -274,7 +278,7 @@ def handle_serial_and_publish(ser, client, topic):
 
 # g = GUI()
 # g.root.mainloop()
-m = MQTT_class()
+m = MQTT()
 gesture_rec = Gesture_Recogniser(1, m)
 
 

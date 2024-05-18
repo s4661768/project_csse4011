@@ -1,27 +1,31 @@
 import threading
 from mqtt import MQTT 
 import tkinter as tk
-# from gesture_recogniser import Gesture_Recogniser
-from gesture import Gesture
 from time import sleep
+
+from gesture import Gesture
+from thingy52 import Thingy52_Receiver
+
 
 class GUI:
     def __init__(self, mqtt: MQTT):
         self.mqtt = mqtt
+
         # Create the main window
         self._gesture_input = 0 # 0 -> Hand recognition, 1 -> IMU data
         self.root = tk.Tk()
-        self.root.title("GUI with Button and Label")
-
+        self.root.title("Gesture Controlled Turtle Bot")
         
-        # Create a button
-        self.gesture_source_button = tk.Button(self.root, text="Hand Recognition", bg='yellow', command=self._gesture_source_button_click)
+        # Create a toggle for input mode
+        self.gesture_source_button = tk.Button(self.root, text="Hand Recognition", bg='yellow',font=('Arial', 30), command=self._gesture_source_button_click)
         self.gesture_source_button.pack()
+
+        # Create a toggle for publishing
+        self.publish_toggle = tk.Button(self.root, text="Not Publishing", bg='red', font=('Arial', 30), command=self._publish_toggle_callback)
+        self.publish_toggle.pack()
         # Create a label
-        self._cmd_label = tk.Label(self.root, text="Current Command: STOP")
+        self._cmd_label = tk.Label(self.root, text="Current Command: STOP", font=('Arial', 30))
         self._cmd_label.pack()
-        # self._gest_rec = threading.Thread(target=Gesture_Recogniser, args=(self,), daemon=True)
-        # self._gest_rec.start()
 
         self._hand_rec_gesture = Gesture.STOP
         self._imu_gesture = Gesture.STOP
@@ -37,20 +41,28 @@ class GUI:
         self._gesture_input = (self._gesture_input + 1) % 2
         if (self._gesture_input == 0):
             gesture_source = "Hand Recognition"
-            self.gesture_source_button.config(text=gesture_source, bg='yellow')
+            self.gesture_source_button.config(text=gesture_source, bg='yellow', font=('Arial', 30))
             self.mqtt.set_input_source(0)
         else:
             gesture_source = "IMU Data" 
-            self.gesture_source_button.config(text=gesture_source, bg='grey')
+            self.gesture_source_button.config(text=gesture_source, bg='grey', font=('Arial', 30))
             self.mqtt.set_input_source(1)
+
         
-        # self._gesture_source_label.config(text="Movement Command: "  + gesture_source)  # Update the label text
+    def _publish_toggle_callback(self):
+        self.mqtt.publish_toggle()
+        print(self.mqtt.get_publish())
+        if (self.mqtt.get_publish() == 1):
+            self.publish_toggle.config(text="Publishing", bg='green',font=('Arial', 30))
+        else:
+            self.publish_toggle.config(text="Not Publishing", bg='red', font=('Arial', 30))
+
 
     def update_cmd_label(self) -> None:
         while True:
             if (self.mqtt.get_input_source() == 0):
-                self._cmd_label.config(text=f"Current Command: {self.mqtt.get_last_hand_gesture().__str__().split('.')[1]}")
+                self._cmd_label.config(text=f"Current Command: {self.mqtt.get_last_hand_gesture().__str__().split('.')[1]}" ,font=('Arial', 30))
                 sleep(0.01)
             elif (self.mqtt.get_input_source() == 1):
-                self._cmd_label.config(text=f"Current Command: {self.mqtt.get_last_thingy52_gesture().__str__().split('.')[1]}")
+                self._cmd_label.config(text=f"Current Command: {self.mqtt.get_last_thingy52_gesture().__str__().split('.')[1]}", font=('Arial', 30))
                 sleep(0.1)

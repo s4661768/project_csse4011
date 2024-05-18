@@ -1,47 +1,50 @@
+""" This file contains the Thingy52_Receiver class. It is used to read serial data from the DK
+board and send the data to the MQTT class to be published."""
+
+
 import serial 
-from gesture import Gesture
 from mqtt import MQTT
 
 class Thingy52_Receiver:
-    def __init__(self, mqtt: MQTT, com_port: str, baud_rate: int):
+    def __init__(self, mqtt: MQTT):
         self.mqtt = mqtt
         # Initialize serial port
-        print("Thingy52_Receiver")
+
+    def open_serial_port(self, com_port: str, baud_rate: int):
         try:
             self.ser = serial.Serial(com_port, baud_rate)
-            self.ser.write("blecon -s 0c:0c:18:4c:b7:f1\n".encode('ascii'))
+
+            # Tell the DK board to connect to the Thingy52 with tis specific MAC address
+            self.ser.write("blecon -s 0c:0c:18:4c:b7:f1\n".encode('ascii')) 
             print("Connected to", com_port)
 
-            self.handle_serial()
+            return True, self.handle_serial() # Start listening for serial data
         except serial.SerialException as e:
             print("Error connecting to serial port:", e)
             self.ser = None
+            return False, None
 
 
 
     def handle_serial(self):
-        """ Handle serial data reading and immediately publish to MQTT in a single thread. """
+        """ Handle serial data reading and immediately send data to MQTT class to publish. """
         try:
             while True:
                 if self.ser.in_waiting > 0:
                     received_data = self.ser.readline().decode('utf-8').strip()
-                    # print("Received:", received_data)
 
-                    if (received_data == ""):
-                        continue
+                    if (received_data == "") or (len(received_data) == 0):
+                        continue    
 
-                    if (len(received_data) == 0):
-                        continue      
-
-                    if (len(received_data) == 1): 
-                        print(f"Direction Command ------------------------------- {received_data}")
+                    if (len(received_data) == 1): # If we received a single character, it is a gesture command
                         self.mqtt.publish_gesture_data_thingy52(received_data)
                         continue
-                    else:
+                    else: # If we received more than a single character, it is a terminal or debug message from the DK board
                         print(received_data)
                     
         except serial.SerialException as e:
             print("Serial port error:", e)
+
         finally:
             if self.ser.is_open:
                 self.ser.close()

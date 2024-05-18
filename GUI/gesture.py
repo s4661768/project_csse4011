@@ -8,7 +8,7 @@ class Gesture(Enum):
     RIGHT = 4   
     HOME = 5
     
-
+""" This function returns the gesture corresponding to the given code."""
 def get_gest_value(code: int) -> Gesture:
     gest = Gesture.STOP
     if code == 1:
