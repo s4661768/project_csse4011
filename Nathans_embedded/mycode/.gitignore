@@ -60,3 +60,6 @@ modules/
 
 .west/config
 mycode/apps/mobile/src/new-main.c
+
+
+Nathans_embedded\mycode\mylib\protocolBuffer\__pycache__
