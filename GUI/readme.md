@@ -1,3 +1,17 @@
+# Necessary Libraries
+serial
+paho.mqtt.client
+cv2
+tensorflow
+google.protobuf.internal
+cvzoneHandtrackingModule
+time
+enum
+threading
+tkinter
+json
+
+
 # .bat file creation guide
 You can follow the instructions here or this youtube video create your own .bat file to run the python program in this directory. https://www.youtube.com/watch?v=-Wl6ZwlICSE
 
