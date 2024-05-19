@@ -9,10 +9,9 @@ from time import sleep
 
 class Gesture_Recogniser:
     def __init__(self, mqtt: MQTT):
-        print("Gesture_Recogniser __init__")
         self.mqtt = mqtt
         self.cam = cv2.VideoCapture(0)
-        cv2.namedWindow("test")
+        cv2.namedWindow("CSSE4011 Project Gesture recogniser")
         self._handDetector = HandDetector(detectionCon = 0.5, maxHands = 1)
         
         while True:  
@@ -30,8 +29,6 @@ class Gesture_Recogniser:
                 cv2.imshow("test", frame)
                 hands1 = hands[0]
                 fingers = self._handDetector.fingersUp(hands1)
-                # print(fingers)
-                # print(self.get_gesture(fingers))
                 code = self.get_gest_code(self.get_gesture(fingers))
                 self.mqtt.publish_gesture_data_hand(code)
                     
