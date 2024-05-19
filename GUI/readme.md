@@ -1,4 +1,4 @@
-# .bat File
+# .bat file creation guide
 You can follow the instructions here or this youtube video create your own .bat file to run the python program in this directory. https://www.youtube.com/watch?v=-Wl6ZwlICSE
 
 Below is an example of .bat file:
