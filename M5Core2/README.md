@@ -7,4 +7,4 @@ This file would detail how to successfully compile and and flash the Arduino ske
 3. Install the following board from the Board Manager tab:
    - M5Stack
 4. From tools drop down menu click on Board option and then select M5Core2 connected to the Machine.
-5. Compile and upload the the sketch.
+5. Compile and upload the sketch.
