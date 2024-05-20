@@ -1,0 +1,78 @@
+[0.063s] Invoking command in '/home/matthewbanks/turtlebot3_ws/src/build/turtlebot3_fake_node': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/matthewbanks/turtlebot3_ws/install/gesture_cont:/opt/ros/humble /usr/bin/cmake /home/matthewbanks/turtlebot3_ws/src/turtlebot3_simulations/turtlebot3_fake_node -DCMAKE_INSTALL_PREFIX=/home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node
+[0.449s] -- The C compiler identification is GNU 11.4.0
+[0.848s] -- The CXX compiler identification is GNU 11.4.0
+[0.900s] -- Detecting C compiler ABI info
+[1.188s] -- Detecting C compiler ABI info - done
+[1.213s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.231s] -- Detecting C compile features
+[1.233s] -- Detecting C compile features - done
+[1.249s] -- Detecting CXX compiler ABI info
+[1.527s] -- Detecting CXX compiler ABI info - done
+[1.549s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.549s] -- Detecting CXX compile features
+[1.577s] -- Detecting CXX compile features - done
+[1.604s] -- Found ament_cmake: 1.3.5 (/opt/ros/humble/share/ament_cmake/cmake)
+[2.126s] -- Found Python3: /usr/bin/python3.10 (found version "3.10.12") found components: Interpreter 
+[2.492s] -- Found geometry_msgs: 4.2.3 (/opt/ros/humble/share/geometry_msgs/cmake)
+[2.718s] -- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[2.736s] -- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[2.786s] -- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[2.846s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[2.899s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.210s] -- Found nav_msgs: 4.2.3 (/opt/ros/humble/share/nav_msgs/cmake)
+[3.384s] -- Found rclcpp: 16.0.5 (/opt/ros/humble/share/rclcpp/cmake)
+[3.522s] -- Found rmw_implementation_cmake: 6.1.1 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[3.546s] -- Found rmw_fastrtps_cpp: 6.2.3 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[3.802s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[3.873s] -- Found FastRTPS: /opt/ros/humble/include  
+[4.017s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[4.059s] -- Looking for pthread.h
+[4.231s] -- Looking for pthread.h - found
+[4.232s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[4.424s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[4.424s] -- Found Threads: TRUE  
+[4.722s] -- Found sensor_msgs: 4.2.3 (/opt/ros/humble/share/sensor_msgs/cmake)
+[4.883s] -- Found tf2: 0.25.3 (/opt/ros/humble/share/tf2/cmake)
+[4.919s] -- Found tf2_msgs: 0.25.3 (/opt/ros/humble/share/tf2_msgs/cmake)
+[5.254s] -- Found turtlebot3_msgs: 2.2.3 (/opt/ros/humble/share/turtlebot3_msgs/cmake)
+[5.590s] -- Configuring done
+[5.614s] -- Generating done
+[5.617s] -- Build files have been written to: /home/matthewbanks/turtlebot3_ws/src/build/turtlebot3_fake_node
+[5.642s] Invoked command in '/home/matthewbanks/turtlebot3_ws/src/build/turtlebot3_fake_node' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/matthewbanks/turtlebot3_ws/install/gesture_cont:/opt/ros/humble /usr/bin/cmake /home/matthewbanks/turtlebot3_ws/src/turtlebot3_simulations/turtlebot3_fake_node -DCMAKE_INSTALL_PREFIX=/home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node
+[5.642s] Invoking command in '/home/matthewbanks/turtlebot3_ws/src/build/turtlebot3_fake_node': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/matthewbanks/turtlebot3_ws/install/gesture_cont:/opt/ros/humble /usr/bin/cmake --build /home/matthewbanks/turtlebot3_ws/src/build/turtlebot3_fake_node -- -j4 -l4
+[5.774s] [ 50%] [32mBuilding CXX object CMakeFiles/turtlebot3_fake_node.dir/src/turtlebot3_fake_node.cpp.o[0m
+[26.902s] [100%] [32m[1mLinking CXX executable turtlebot3_fake_node[0m
+[28.735s] [100%] Built target turtlebot3_fake_node
+[28.754s] Invoked command in '/home/matthewbanks/turtlebot3_ws/src/build/turtlebot3_fake_node' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/matthewbanks/turtlebot3_ws/install/gesture_cont:/opt/ros/humble /usr/bin/cmake --build /home/matthewbanks/turtlebot3_ws/src/build/turtlebot3_fake_node -- -j4 -l4
+[28.880s] Invoking command in '/home/matthewbanks/turtlebot3_ws/src/build/turtlebot3_fake_node': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/matthewbanks/turtlebot3_ws/install/gesture_cont:/opt/ros/humble /usr/bin/cmake --install /home/matthewbanks/turtlebot3_ws/src/build/turtlebot3_fake_node
+[28.904s] -- Install configuration: ""
+[28.904s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/lib/turtlebot3_fake_node/turtlebot3_fake_node
+[28.913s] -- Set runtime path of "/home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/lib/turtlebot3_fake_node/turtlebot3_fake_node" to ""
+[28.914s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/launch
+[28.919s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/launch/turtlebot3_fake_node.launch.py
+[28.921s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/launch/rviz2.launch.py
+[28.924s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/param
+[28.925s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/param/waffle.yaml
+[28.926s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/param/waffle_pi.yaml
+[28.927s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/param/burger.yaml
+[28.928s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/include/
+[28.928s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/include//turtlebot3_fake_node
+[28.928s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/include//turtlebot3_fake_node/turtlebot3_fake_node.hpp
+[28.929s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/ament_index/resource_index/package_run_dependencies/turtlebot3_fake_node
+[28.931s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/ament_index/resource_index/parent_prefix_path/turtlebot3_fake_node
+[28.932s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/environment/ament_prefix_path.sh
+[28.934s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/environment/ament_prefix_path.dsv
+[28.934s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/environment/path.sh
+[28.934s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/environment/path.dsv
+[28.934s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/local_setup.bash
+[28.934s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/local_setup.sh
+[28.934s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/local_setup.zsh
+[28.934s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/local_setup.dsv
+[28.934s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/package.dsv
+[28.934s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/ament_index/resource_index/packages/turtlebot3_fake_node
+[28.934s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/cmake/ament_cmake_export_include_directories-extras.cmake
+[28.940s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/cmake/ament_cmake_export_dependencies-extras.cmake
+[28.940s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/cmake/turtlebot3_fake_nodeConfig.cmake
+[28.940s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/cmake/turtlebot3_fake_nodeConfig-version.cmake
+[28.940s] -- Installing: /home/matthewbanks/turtlebot3_ws/src/install/turtlebot3_fake_node/share/turtlebot3_fake_node/package.xml
+[28.947s] Invoked command in '/home/matthewbanks/turtlebot3_ws/src/build/turtlebot3_fake_node' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/matthewbanks/turtlebot3_ws/install/gesture_cont:/opt/ros/humble /usr/bin/cmake --install /home/matthewbanks/turtlebot3_ws/src/build/turtlebot3_fake_node

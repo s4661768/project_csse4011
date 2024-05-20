@@ -1,0 +1,24 @@
+[1.099s] Invoking command in '/home/matthewbanks/turtlebot3_ws/src/gesture_cont': PYTHONPATH=/home/matthewbanks/turtlebot3_ws/build/gesture_cont/prefix_override:/home/matthewbanks/turtlebot3_ws/install/gesture_cont/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/gesture_cont build --build-base /home/matthewbanks/turtlebot3_ws/build/gesture_cont/build install --record /home/matthewbanks/turtlebot3_ws/build/gesture_cont/install.log --single-version-externally-managed
+[1.409s] running egg_info
+[1.410s] writing ../../build/gesture_cont/gesture_cont.egg-info/PKG-INFO
+[1.410s] writing dependency_links to ../../build/gesture_cont/gesture_cont.egg-info/dependency_links.txt
+[1.410s] writing entry points to ../../build/gesture_cont/gesture_cont.egg-info/entry_points.txt
+[1.410s] writing requirements to ../../build/gesture_cont/gesture_cont.egg-info/requires.txt
+[1.410s] writing top-level names to ../../build/gesture_cont/gesture_cont.egg-info/top_level.txt
+[1.413s] reading manifest file '../../build/gesture_cont/gesture_cont.egg-info/SOURCES.txt'
+[1.413s] writing manifest file '../../build/gesture_cont/gesture_cont.egg-info/SOURCES.txt'
+[1.413s] running build
+[1.413s] running build_py
+[1.413s] copying gesture_cont/gesture_control.py -> /home/matthewbanks/turtlebot3_ws/build/gesture_cont/build/lib/gesture_cont
+[1.414s] running install
+[1.414s] running install_lib
+[1.415s] copying /home/matthewbanks/turtlebot3_ws/build/gesture_cont/build/lib/gesture_cont/gesture_control.py -> /home/matthewbanks/turtlebot3_ws/install/gesture_cont/lib/python3.10/site-packages/gesture_cont
+[1.416s] byte-compiling /home/matthewbanks/turtlebot3_ws/install/gesture_cont/lib/python3.10/site-packages/gesture_cont/gesture_control.py to gesture_control.cpython-310.pyc
+[1.417s] running install_data
+[1.418s] running install_egg_info
+[1.419s] removing '/home/matthewbanks/turtlebot3_ws/install/gesture_cont/lib/python3.10/site-packages/gesture_cont-0.0.0-py3.10.egg-info' (and everything under it)
+[1.420s] Copying ../../build/gesture_cont/gesture_cont.egg-info to /home/matthewbanks/turtlebot3_ws/install/gesture_cont/lib/python3.10/site-packages/gesture_cont-0.0.0-py3.10.egg-info
+[1.421s] running install_scripts
+[1.445s] Installing gest_node script to /home/matthewbanks/turtlebot3_ws/install/gesture_cont/lib/gesture_cont
+[1.445s] writing list of installed files to '/home/matthewbanks/turtlebot3_ws/build/gesture_cont/install.log'
+[1.505s] Invoked command in '/home/matthewbanks/turtlebot3_ws/src/gesture_cont' returned '0': PYTHONPATH=/home/matthewbanks/turtlebot3_ws/build/gesture_cont/prefix_override:/home/matthewbanks/turtlebot3_ws/install/gesture_cont/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/gesture_cont build --build-base /home/matthewbanks/turtlebot3_ws/build/gesture_cont/build install --record /home/matthewbanks/turtlebot3_ws/build/gesture_cont/install.log --single-version-externally-managed

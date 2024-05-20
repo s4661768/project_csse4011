@@ -1,0 +1,5 @@
+  File "/home/matthewbanks/turtlebot3_ws/install/gesture_cont/lib/python3.10/site-packages/gesture_cont/gesture_control.py", line 220
+    position.x, position.y, position.z, motion.linear.x, motion.angular.z, yaw))
+                                                                              ^
+SyntaxError: unmatched ')'
+

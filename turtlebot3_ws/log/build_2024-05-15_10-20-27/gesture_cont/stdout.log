@@ -1,0 +1,22 @@
+running egg_info
+writing ../../build/gesture_cont/gesture_cont.egg-info/PKG-INFO
+writing dependency_links to ../../build/gesture_cont/gesture_cont.egg-info/dependency_links.txt
+writing entry points to ../../build/gesture_cont/gesture_cont.egg-info/entry_points.txt
+writing requirements to ../../build/gesture_cont/gesture_cont.egg-info/requires.txt
+writing top-level names to ../../build/gesture_cont/gesture_cont.egg-info/top_level.txt
+reading manifest file '../../build/gesture_cont/gesture_cont.egg-info/SOURCES.txt'
+writing manifest file '../../build/gesture_cont/gesture_cont.egg-info/SOURCES.txt'
+running build
+running build_py
+copying gesture_cont/gesture_control.py -> /home/matthewbanks/turtlebot3_ws/build/gesture_cont/build/lib/gesture_cont
+running install
+running install_lib
+copying /home/matthewbanks/turtlebot3_ws/build/gesture_cont/build/lib/gesture_cont/gesture_control.py -> /home/matthewbanks/turtlebot3_ws/install/gesture_cont/lib/python3.10/site-packages/gesture_cont
+byte-compiling /home/matthewbanks/turtlebot3_ws/install/gesture_cont/lib/python3.10/site-packages/gesture_cont/gesture_control.py to gesture_control.cpython-310.pyc
+running install_data
+running install_egg_info
+removing '/home/matthewbanks/turtlebot3_ws/install/gesture_cont/lib/python3.10/site-packages/gesture_cont-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../../build/gesture_cont/gesture_cont.egg-info to /home/matthewbanks/turtlebot3_ws/install/gesture_cont/lib/python3.10/site-packages/gesture_cont-0.0.0-py3.10.egg-info
+running install_scripts
+Installing gest_node script to /home/matthewbanks/turtlebot3_ws/install/gesture_cont/lib/gesture_cont
+writing list of installed files to '/home/matthewbanks/turtlebot3_ws/build/gesture_cont/install.log'

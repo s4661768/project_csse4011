@@ -1,0 +1,5 @@
+  File "/home/matthewbanks/turtlebot3_ws/install/gesture_cont/lib/python3.10/site-packages/gesture_cont/gesture_control.py", line 240
+    print("initial offset flag "self.initial_offset_flag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+
